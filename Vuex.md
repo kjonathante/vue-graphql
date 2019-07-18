@@ -1,25 +1,19 @@
-<template>
-  <div class="vuex">
-    <h1>This is an Vuex page</h1>
+# State
 
-    <p>count {{ count }}</p>
-    <p>countAlias {{ countAlias }}</p>
-    <p>countPlusLocalState {{ countPlusLocalState }}</p>
-    <p>
-      <button @click="increment">+</button>
-      <button @click="decrement">-</button>
-    </p>
-  </div>
-</template>
-<script>
+```javascript
+export default {
+  computed: {
+    count() {
+      return this.$store.state.count
+    }
+  }
+}
+```
+
+```javascript
 import { mapState } from 'vuex'
 
 export default {
-  data() {
-    return {
-      localCount: 100
-    }
-  },
   computed: {
     localComputed() {
       return '...'
@@ -41,16 +35,6 @@ export default {
       // map this.count to store.state.count
       'count'
     ])
-  },
-  methods: {
-    increment() {
-      this.$store.commit('increment')
-    },
-    decrement() {
-      this.$store.commit('decrement')
-    }
   }
 }
-</script>
-
-<style></style>
+```
