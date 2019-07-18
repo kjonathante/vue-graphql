@@ -1,5 +1,19 @@
 # State
 
+```javascript
+import Vuex from 'vuex'
+
+export default new Vuex.Store({
+  strict: true,
+  plugins: [],
+  modules: {},
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {}
+})
+```
+
 ## Getting Vuex State into Vue Components
 
 ```javascript
@@ -40,3 +54,5 @@ export default {
   }
 }
 ```
+
+## "getters" in the store
