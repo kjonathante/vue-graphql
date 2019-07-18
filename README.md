@@ -1,5 +1,5 @@
 # vue-graphql
-
+![Settings](documentation/settings-1.png)
 ## Project setup
 ```
 yarn install
