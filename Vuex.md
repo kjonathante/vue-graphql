@@ -1,5 +1,7 @@
 # State
 
+## Getting Vuex State into Vue Components
+
 ```javascript
 export default {
   computed: {
