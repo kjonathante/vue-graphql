@@ -1,19 +1,24 @@
 <template>
   <div>
     <button @click="getLanguage">Get Data</button>
-    <ul>
-      <li v-for="result in results">{{ result.id }}</li>
-    </ul>
+    <div>
+      <Card v-for="result in results" :data="result"></Card>
+    </div>
   </div>
 </template>
 <script>
 import axios from 'axios'
+import Card from '@/components/Card'
+
 export default {
   name: 'app',
   data() {
     return {
       results: []
     }
+  },
+  components: {
+    Card
   },
   methods: {
     async getLanguage() {
