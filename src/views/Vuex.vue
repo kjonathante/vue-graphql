@@ -11,12 +11,14 @@
     <p>
       <button @click="increment">+</button>
       <button @click="decrement">-</button>
+      <button @click="add">add</button>
     </p>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -58,11 +60,26 @@ export default {
   },
   methods: {
     increment() {
-      this.$store.commit('increment')
+      this.$store.dispatch('incrementAsync')
+      // dispatch with a payload
+      this.$store.dispatch('incrementAsync', {
+        amount: 10
+      })
+      // dispatch with an object
+      this.$store.dispatch({
+        type: 'incrementAsync',
+        amount: 10
+      })
     },
     decrement() {
-      this.$store.commit('decrement')
-    }
+      this.$store.dispatch('decrement')
+    },
+    ...mapActions({
+      add: 'increment' // map `this.add()` to `this.$store.dispatch('increment')`
+    }),
+    ...mapActions([
+      'decrement' // map `this.decrement()` to `this.$store.dispatch('decrement')`
+    ])
   }
 }
 </script>

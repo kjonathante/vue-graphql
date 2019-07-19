@@ -21,6 +21,44 @@ export default new Vuex.Store({
     increment: state => state.count++,
     decrement: state => state.count--
   },
+  actions: {
+    increment(context) {
+      // context.commit
+      // context.state
+      // comtext.getters
+      // context.dispatch
+      context.commit('increment')
+    },
+    decrement({ commit }) {
+      commit('decrement')
+    },
+    incrementAsync({ commit }, payload) {
+      setTimeout(() => {
+        commit('increment')
+        console.log(payload)
+      }, 1000)
+    },
+    actionA({ commit }) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          commit('decrement')
+          resolve()
+        }, 1000)
+      })
+    },
+    actionB({ dispatch, commit }) {
+      return dispatch('actionA').then(() => {
+        commit('decrement')
+      })
+    },
+    async actionA({ commit }) {
+      commit('gotData', await getData())
+    },
+    async actionB({ dispatch, commit }) {
+      await dispatch('actionA') // wait for `actionA` to finish
+      commit('gotOtherData', await getOtherData())
+    }
+  },
   getters: {
     // Property-Style Access
     doneTodos: state => {
