@@ -5,6 +5,9 @@
     <p>count {{ count }}</p>
     <p>countAlias {{ countAlias }}</p>
     <p>countPlusLocalState {{ countPlusLocalState }}</p>
+    <p>doneTodosCount {{ doneTodosCount }}</p>
+    <p>getTodoById {{ getTodoById }}</p>
+    <p>doneCount {{ doneCount }}</p>
     <p>
       <button @click="increment">+</button>
       <button @click="decrement">-</button>
@@ -13,6 +16,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -40,7 +44,17 @@ export default {
     ...mapState([
       // map this.count to store.state.count
       'count'
-    ])
+    ]),
+    doneTodosCount() {
+      return this.$store.getters.doneTodosCount
+    },
+    getTodoById() {
+      return this.$store.getters.getTodoById(2)
+    },
+    ...mapGetters({
+      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
+      doneCount: 'doneTodosCount'
+    })
   },
   methods: {
     increment() {
