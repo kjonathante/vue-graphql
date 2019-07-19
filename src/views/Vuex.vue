@@ -31,7 +31,7 @@ export default {
       return '...'
     },
     // mix this into the outer object with the object spread operator
-    ...mapState({
+    ...mapState('count', {
       // arrow functions can make the code very succinct!
       count: state => state.count,
 
@@ -43,41 +43,41 @@ export default {
         return state.count + this.localCount
       }
     }),
-    ...mapState([
+    ...mapState('count', [
       // map this.count to store.state.count
       'count'
     ]),
     doneTodosCount() {
-      return this.$store.getters.doneTodosCount
+      return this.$store.getters['todos/doneTodosCount']
     },
     getTodoById() {
-      return this.$store.getters.getTodoById(2)
+      return this.$store.getters['todos/getTodoById'](2)
     },
-    ...mapGetters({
+    ...mapGetters('todos', {
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
       doneCount: 'doneTodosCount'
     })
   },
   methods: {
     increment() {
-      this.$store.dispatch('incrementAsync')
+      this.$store.dispatch('count/incrementAsync')
       // dispatch with a payload
-      this.$store.dispatch('incrementAsync', {
+      this.$store.dispatch('count/incrementAsync', {
         amount: 10
       })
       // dispatch with an object
       this.$store.dispatch({
-        type: 'incrementAsync',
+        type: 'count/incrementAsync',
         amount: 10
       })
     },
     decrement() {
-      this.$store.dispatch('decrement')
+      this.$store.dispatch('count/decrement')
     },
-    ...mapActions({
+    ...mapActions('count', {
       add: 'increment' // map `this.add()` to `this.$store.dispatch('increment')`
     }),
-    ...mapActions([
+    ...mapActions('count', [
       'decrement' // map `this.decrement()` to `this.$store.dispatch('decrement')`
     ])
   }
