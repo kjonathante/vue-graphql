@@ -9,13 +9,12 @@
 <script>
 import axios from 'axios'
 import Card from '@/components/Card'
+import { mapState } from 'vuex'
 
 export default {
   name: 'app',
   data() {
-    return {
-      results: []
-    }
+    return {}
   },
   components: {
     Card
@@ -50,6 +49,9 @@ export default {
         console.log('err', e)
       }
     }
+  },
+  computed: {
+    ...mapState('kiva', ['results'])
   }
 }
 </script>
