@@ -1,44 +1,33 @@
-import axios from 'axios'
 import Vue from 'vue'
+import kiva from '../../api/kiva'
 // state
 const state = {
-  results: []
+  results: [{ id: 'adf', name: 'adf' }],
+  status: null
 }
 
 // getters
 const getters = {
   results(state) {
     return state.results
+  },
+  status(status) {
+    return state.status
   }
 }
 
 // actions
 const actions = {
   async getResults({ commit }) {
+    commit('setStatus', 'Requesting')
     try {
-      const res = await axios.post('https://api.kivaws.org/graphql', {
-        query: `{
-          general {
-            partners {
-              values {
-                id,
-                name,
-                countries {
-                  name
-                  isoCode
-                  region
-                  ppp
-                  numLoansFundraising
-                  fundsLentInCountry
-                }
-              }
-            }
-          }
-        }`
+      const results = await kiva.getPartners()
+      commit('setResults', {
+        results: results.data.data.general.partners.values
       })
-      commit('setResults', { results: res.data.data.general.partners.values })
-    } catch (e) {
-      console.log('err', e)
+      commit('setStatus', 'Success')
+    } catch (err) {
+      commit('setStatus', 'Failed')
     }
   }
 }
@@ -48,6 +37,9 @@ const mutations = {
   setResults(state, { results }) {
     // state.results = results
     Vue.set(state, 'results', results)
+  },
+  setStatus(state, status) {
+    state.status = status
   }
 }
 

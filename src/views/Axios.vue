@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>{{ status }}</p>
     <button @click="getResults">Get Data</button>
     <div>
       <Card v-for="result in results" :data="result" :key="result.id"></Card>
@@ -22,7 +23,7 @@ export default {
     ...mapActions('kiva', ['getResults'])
   },
   computed: {
-    ...mapGetters('kiva', ['results'])
+    ...mapGetters('kiva', ['results', 'status'])
   }
 }
 </script>
