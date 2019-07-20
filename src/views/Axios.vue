@@ -1,55 +1,29 @@
 <template>
   <div>
-    <button @click="getLanguage">Get Data</button>
+    <p>{{ status }}</p>
+    <button @click="getResults">Get Data</button>
     <div>
-      <Card v-for="result in results" :data="result"></Card>
+      <Card v-for="result in results" :data="result" :key="result.id"></Card>
     </div>
   </div>
 </template>
 <script>
-import axios from 'axios'
 import Card from '@/components/Card'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'app',
   data() {
-    return {
-      results: []
-    }
+    return {}
   },
   components: {
     Card
   },
   methods: {
-    async getLanguage() {
-      try {
-        const res = await axios.post('https://api.kivaws.org/graphql', {
-          query: `{
-            general {
-              partners {
-                values {
-                  id,
-                  name,
-                  countries {
-                    name
-                    isoCode
-                    region
-                    ppp
-                    numLoansFundraising
-                    fundsLentInCountry
-                  }
-                }
-              }
-            }
-          }`
-        })
-        // this.example1 = res.data.data.language
-        console.log(res.data.data.general.partners.values)
-        this.results = res.data.data.general.partners.values
-      } catch (e) {
-        console.log('err', e)
-      }
-    }
+    ...mapActions('kiva', ['getResults'])
+  },
+  computed: {
+    ...mapGetters('kiva', ['results', 'status'])
   }
 }
 </script>
