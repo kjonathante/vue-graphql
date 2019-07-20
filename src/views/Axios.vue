@@ -2,7 +2,7 @@
   <div>
     <p>{{ status }}</p>
     <button @click="getResults">Get Data</button>
-    <div>
+    <div class="display">
       <Card v-for="result in results" :data="result" :key="result.id"></Card>
     </div>
   </div>
@@ -27,3 +27,9 @@ export default {
   }
 }
 </script>
+<style>
+.display {
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>

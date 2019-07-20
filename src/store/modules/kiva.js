@@ -2,7 +2,22 @@ import Vue from 'vue'
 import kiva from '../../api/kiva'
 // state
 const state = {
-  results: [{ id: 'adf', name: 'adf' }],
+  results: [
+    {
+      id: 'adf',
+      name: 'adf',
+      countries: [
+        {
+          name: 'Somalia',
+          isoCode: 'SO',
+          region: 'Africa',
+          ppp: null,
+          numLoansFundraising: 0,
+          fundsLentInCountry: 315625
+        }
+      ]
+    }
+  ],
   status: null
 }
 
