@@ -3,14 +3,16 @@
     <p>{{ status }}</p>
     <button @click="getResults">Get Data</button>
     <div class="display">
-      <Card v-for="result in results" :data="result" :key="result.id">
-        <CountryList :countries="result.countries"></CountryList>
-      </Card>
+      <partners-card v-for="result in results" :data="result" :key="result.id">
+        <template v-slot:countries="{ partner }">
+          <CountryList :countries="partner.countries"></CountryList>
+        </template>
+      </partners-card>
     </div>
   </div>
 </template>
 <script>
-import Card from '@/components/Card'
+import PartnersCard from '@/components/partners-card'
 import CountryList from '@/components/CountryList'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -20,7 +22,7 @@ export default {
     return {}
   },
   components: {
-    Card,
+    PartnersCard,
     CountryList
   },
   methods: {

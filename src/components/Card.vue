@@ -1,16 +1,11 @@
 <template>
   <div class="card">
-    <p>{{ data.name }}</p>
     <slot></slot>
   </div>
 </template>
 
 <script>
-export default {
-  props: {
-    data: Object
-  }
-}
+export default {}
 </script>
 
 <style scoped>
