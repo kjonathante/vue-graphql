@@ -14,6 +14,7 @@
         </ul>
       </div>
     </slot>
+    <slot name="footer" :closeModal="closeModal"></slot>
   </Card>
 </template>
 
@@ -25,6 +26,11 @@ export default {
   },
   components: {
     Card
+  },
+  methods: {
+    closeModal() {
+      console.log('closeModal')
+    }
   }
 }
 </script>

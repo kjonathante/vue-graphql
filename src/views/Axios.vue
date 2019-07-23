@@ -7,6 +7,9 @@
         <template v-slot:countries="{ partner }">
           <CountryList :countries="partner.countries"></CountryList>
         </template>
+        <template v-slot:footer="{ closeModal }">
+          <button @click="closeModal">More Info</button>
+        </template>
       </partners-card>
     </div>
   </div>
