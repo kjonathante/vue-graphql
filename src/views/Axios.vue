@@ -3,12 +3,15 @@
     <p>{{ status }}</p>
     <button @click="getResults">Get Data</button>
     <div class="display">
-      <Card v-for="result in results" :data="result" :key="result.id"></Card>
+      <Card v-for="result in results" :data="result" :key="result.id">
+        <CountryList :countries="result.countries"></CountryList>
+      </Card>
     </div>
   </div>
 </template>
 <script>
 import Card from '@/components/Card'
+import CountryList from '@/components/CountryList'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -17,7 +20,8 @@ export default {
     return {}
   },
   components: {
-    Card
+    Card,
+    CountryList
   },
   methods: {
     ...mapActions('kiva', ['getResults'])
