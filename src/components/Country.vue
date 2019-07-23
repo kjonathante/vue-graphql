@@ -1,6 +1,14 @@
 <template>
   <div>
     <p>{{ country.name }}</p>
+    <ul>
+      <li
+        v-for="key in ['fundsLentInCountry', 'numLoansFundraising']"
+        :key="key"
+      >
+        {{ country[key] }}
+      </li>
+    </ul>
   </div>
 </template>
 
