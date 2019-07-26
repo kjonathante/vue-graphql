@@ -18,7 +18,10 @@ const state = {
       ]
     }
   ],
-  status: null
+  status: 'Uninitialized',
+  totalCount: 0,
+  loading: false,
+  error: null
 }
 
 // getters
@@ -26,20 +29,25 @@ const getters = {
   results(state) {
     return state.results
   },
-  status(status) {
+  status(state) {
     return state.status
+  },
+  totalCount(state) {
+    return state.totalCount
   }
 }
 
 // actions
 const actions = {
-  async getResults({ commit }) {
+  async getResults({ commit }, payload) {
+    // console.log(payload)
     commit('setStatus', 'Requesting')
     try {
-      const results = await kiva.getPartners()
+      const results = await kiva.getPartners(payload.offset)
       commit('setResults', {
         results: results.data.data.general.partners.values
       })
+      commit('setTotalCount', results.data.data.general.partners.totalCount)
       commit('setStatus', 'Success')
     } catch (err) {
       commit('setStatus', 'Failed')
@@ -55,6 +63,9 @@ const mutations = {
   },
   setStatus(state, status) {
     state.status = status
+  },
+  setTotalCount(state, totalCount) {
+    state.totalCount = totalCount
   }
 }
 
